@@ -3,7 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 export default function DetailList({data, dataPoint}) {
   return (
     data.map((dataPoint) => (
-      <View style={styles.container}>
+      <View key={dataPoint}  style={styles.container}>
         <Text>{dataPoint}</Text>
       </View>
     ))
