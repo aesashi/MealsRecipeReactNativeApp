@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Ionicons } from '@expo/vector-icons';
+import FavoriteContextProvider from './context/Favorite-context';
 
 const  Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -18,10 +19,10 @@ function DrawerNavs() {
   return (
     <Drawer.Navigator
         screenOptions={{
-          headerStyle: {backgroundColor: '#351401'},
+          headerStyle: { backgroundColor: '#351401' },
           headerTintColor: 'white',
-          sceneContainerStyle: {backgroundColor: '#3f2f25'},
-          drawerContentStyle: {backgroundColor: '#351401'},
+          sceneContainerStyle: { backgroundColor: '#3f2f25' },
+          drawerContentStyle: { backgroundColor: '#351401' },
           drawerInactiveTintColor: 'white',
           drawerActiveTintColor: '#351401',
           drawerActiveBackgroundColor: '#e4baa1',
@@ -43,7 +44,7 @@ function DrawerNavs() {
         options={{
           title: 'Favorites',
           drawerIcon: ({color, size}) => (
-            <Ionicons name='star' color={color} size={size} />
+            <Ionicons name='star' color={'white'} size={size} />
           )
         }}
       />
@@ -53,27 +54,34 @@ function DrawerNavs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#351401'
-          },
-            headerTintColor: 'white',
-      }}>
-        <Stack.Screen
-          name="Drawer"
-          component={DrawerNavs}
-          options={{
-            title: 'All Categories',
-            headerShown: false,
-          }}
-         />
-        <Stack.Screen name="Overview" component={OverviewScreen} />
-        <Stack.Screen name="Detail" component={MealDetailScreen} />
+    <>
+    <StatusBar style='light' />
+      <FavoriteContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#351401'
+              },
+                headerTintColor: 'white',
+                contentStyle: {backgroundColor: '#3f2f25'}
 
-      </Stack.Navigator>
-    </NavigationContainer>
+          }}>
+            <Stack.Screen
+              name="Drawer"
+              component={DrawerNavs}
+              options={{
+                title: 'All Categories',
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="Overview" component={OverviewScreen} />
+            <Stack.Screen name="Detail" component={MealDetailScreen} />
+
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoriteContextProvider>
+    </>
   );
 }
 
